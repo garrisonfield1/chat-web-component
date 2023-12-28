@@ -105,6 +105,16 @@ dssChatApp.innerHtml = `
 </section>
 `
 
+class DssChatApp extends HTMLElement {
+  // static get observedAttributes() {
+  //   return ['theme','icon'];
+  // }
+
+  constructor() {
+    super();
+  }
+
+  // More JS goes here.
 const iframeContainer = document.getElementById('modal-container-chat');
 
 const chatButtonOpen = document.querySelector(
@@ -130,3 +140,9 @@ chatButtonOpen.addEventListener('click', (event) => {
   chatButtonOpen.classList.add('hidden');
   iframeContainer.classList.remove('hidden');
 });
+  
+}
+
+customElements.define('dss-chat-app', DssChatApp)
+
+
