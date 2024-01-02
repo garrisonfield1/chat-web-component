@@ -1,13 +1,128 @@
 // Import stylesheets
-import './chat-style.css';
-
 const dssChatApp = document.createElement('dssChatApp')
-dssChatApp.innerHtml = `
+template.innerHTML = `
+  <style>
+    *,
+    :after,
+    :before {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.2rem;
+    }
+    .display-none {
+      display: none;
+    }
+    .hidden {
+      visibility: hidden;
+    }
+    .display-block {
+      display: block;
+    }
+    section {
+      display: block;
+    }
+    .dss-chat-floatButton {
+      box-sizing: border-box;
+    }
+    .chat-icon-group {
+      bottom: 1.5rem;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      position: fixed;
+      right: 1.5rem;
+    }
+    .semi-transparent-button {
+      background: #c31533;
+      border-radius: 100%;
+      color: #fff;
+      height: 4rem;
+      right: 1.5rem;
+      width: 4rem !important;
+    }
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    .text-center {
+      text-align: center !important;
+    }
+    .shadow {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2rem;
+    }
+    svg {
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .svg-icon {
+      width: 4em;
+      height: 4em;
+      vertical-align: middle;
+      fill: currentColor;
+      overflow: hidden;
+      padding-top: 0.7em;
+    }
+    
+    svg:not(:root) {
+      overflow-clip-margin: content-box;
+      overflow: hidden;
+    }
+    .mt-3 {
+      margin-top: 1rem !important;
+    }
+    .w-100 {
+      width: 100% !important;
+    }
+    .h-100 {
+      height: 100% !important;
+    }
+    .border {
+      border: 1px solid #dee2e6 !important;
+    }
+    .modal-container-chat {
+      background-color: #fff;
+      right: 0.25rem;
+      width: 450px;
+      /* height: 650px; */
+      /* max-height: 40%; */
+    }
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    .text-center {
+      text-align: center !important;
+    }
+    .shadow {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    .modal-section {
+      height: 75%;
+    }
+    .border1 {
+      border: 1px solid red;
+    }
+    .position-fixed {
+      position: fixed;
+    }
+    .modal-section-chat {
+      bottom: 0;
+      height: 90%;
+    }
+  </style>
   <section>
     <div class="dss-chat-floatButton">
-      <span class="chat-icon-group button-section " @click=${this._openChat} >
+      <span class="chat-icon-group button-section">
         <span
-        
           name="svgImg1"
           value="svgImg1"
           data-component-id="DssChatBotButton"
@@ -45,7 +160,6 @@ dssChatApp.innerHtml = `
         </span>
         <h5 class="mb-3">Live Chat</h5>
         <span
-        
           name="svgImg1"
           value="svgImg1"
           data-component-id="DssChatBotButton"
@@ -89,7 +203,7 @@ dssChatApp.innerHtml = `
             shadow-lg
             position-fixed
             modal-section-chat
-            ${this.isChatEngaged ? '' : 'hidden'}
+            hidden
           "
         >
           <iframe
@@ -102,7 +216,8 @@ dssChatApp.innerHtml = `
       </span>
     </div>
   </section>
-`
+`;
+
 
 class DssChatApp extends HTMLElement {
 
