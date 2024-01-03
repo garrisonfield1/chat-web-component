@@ -115,7 +115,7 @@ template.innerHTML = `
     }
     .modal-section-chat {
       bottom: 0;
-      height: 90%;
+      height: 31em;
     }
   </style>
   <section>
