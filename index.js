@@ -209,7 +209,7 @@ template.innerHTML = `
           <iframe
             id="chat-iframe"
             class="w-100 h-100 border"
-            src="http://localhost:8080/app/chat?orgId=globalorg-us&liveChat=true"
+            src="dynamicly-pulled-from-connectedCallback()"
             title="description"
           ></iframe>
         </div>      
@@ -218,15 +218,21 @@ template.innerHTML = `
 `;
 
 class DssChatApp extends HTMLElement {
+
+  static get observedAttributes() {
+    return ['chaturl'];
+  }  
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.isChatEngaged = false;
     this.handleChatAppClose = this.handleChatAppClose.bind(this);
-    this.liveChatIframe = 0;
   }
 
   connectedCallback() {
+    console.log("Custom element added to page.");
+
     super.connectedCallback && super.connectedCallback();
     window.addEventListener('message', this.handleChatAppClose);
 
@@ -236,25 +242,32 @@ class DssChatApp extends HTMLElement {
       .querySelector('dss-chat-app')
       .shadowRoot.querySelector('.chat-icon-group.button-section');
 
-    const liveChatIframe = document
+    const liveChatIframeElement = document
+      .querySelector('dss-chat-app')
+      .shadowRoot.querySelector('#chat-iframe');
+
+    const liveChatIframeContainer = document
       .querySelector('dss-chat-app')
       .shadowRoot.querySelector('.modal-container-chat');
 
+    const urlObj = new URL(this.getAttribute("chaturl"))
+    liveChatIframeElement.src = urlObj.href
+    this.domain = urlObj.origin
+    
     if (!liveChatBtn) return;
 
     liveChatBtn.addEventListener('click', function (event) {
       this.isChatEngaged = !this.isChatEngaged;
-      liveChatIframe.classList.remove('hidden');
+      liveChatIframeContainer.classList.remove('hidden');
       console.log('this.isChatEngaged ', this.isChatEngaged);
     });
 
-    this.liveChatIframe = liveChatIframe;
+    this.liveChatIframe = liveChatIframeContainer;
   }
 
   handleChatAppClose(e) {
-    // console.log('event ', e.data);
-    // TODO dynamic import for url? hardcode? 
-    if (e.origin !== 'http://localhost:8080') return;
+
+    if (e.origin !== this.domain) return;
     if(typeof e.data.showPopup === "boolean"){
       this.liveChatIframe.classList.add('hidden');
       this.isChatEngaged = e.data.showPopup;
@@ -264,4 +277,3 @@ class DssChatApp extends HTMLElement {
 }
 
 customElements.define('dss-chat-app', DssChatApp);
-
