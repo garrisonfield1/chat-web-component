@@ -252,7 +252,8 @@ class DssChatApp extends HTMLElement {
   }
 
   handleChatAppClose(e) {
-    console.log('event ', e.data);
+    // console.log('event ', e.data);
+    // TODO dynamic import for url? hardcode? 
     if (e.origin !== 'http://localhost:8080') return;
     if(typeof e.data.showPopup === "boolean"){
       this.liveChatIframe.classList.add('hidden');
