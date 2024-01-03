@@ -217,13 +217,13 @@ template.innerHTML = `
   </section>
 `;
 
-class MyCounter extends HTMLElement {
+class DssChatApp extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.isChatEngaged = false;
     this.handleChatAppClose = this.handleChatAppClose.bind(this);
-    this.liveChatIframe;
+    this.liveChatIframe = 0;
   }
 
   connectedCallback() {
@@ -233,11 +233,11 @@ class MyCounter extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     const liveChatBtn = document
-      .querySelector('my-counter')
+      .querySelector('dss-chat-app')
       .shadowRoot.querySelector('.chat-icon-group.button-section');
 
     const liveChatIframe = document
-      .querySelector('my-counter')
+      .querySelector('dss-chat-app')
       .shadowRoot.querySelector('.modal-container-chat');
 
     if (!liveChatBtn) return;
@@ -252,12 +252,15 @@ class MyCounter extends HTMLElement {
   }
 
   handleChatAppClose(e) {
-    this.liveChatIframe.classList.add('hidden');
-    console.log('event ', e.data.showPopup);
+    console.log('event ', e.data);
     if (e.origin !== 'http://localhost:8080') return;
-    this.isChatEngaged = e.data.showPopup;
+    if(typeof e.data.showPopup === "boolean"){
+      this.liveChatIframe.classList.add('hidden');
+      this.isChatEngaged = e.data.showPopup;
+    }
+    
   }
 }
 
-customElements.define('my-counter', MyCounter);
+customElements.define('dss-chat-app', DssChatApp);
 
