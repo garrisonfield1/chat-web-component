@@ -69,7 +69,7 @@ template.innerHTML = `
       vertical-align: middle;
       fill: currentColor;
       overflow: hidden;
-      padding-top: 0.7em;
+      padding: 0.7em;
     }
     
     svg:not(:root) {
@@ -266,13 +266,11 @@ class DssChatApp extends HTMLElement {
   }
 
   handleChatAppClose(e) {
-
     if (e.origin !== this.domain) return;
     if(typeof e.data.showPopup === "boolean"){
       this.liveChatIframe.classList.add('hidden');
       this.isChatEngaged = e.data.showPopup;
     }
-    
   }
 }
 
